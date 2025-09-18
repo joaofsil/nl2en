@@ -213,18 +213,22 @@
         <header>
             <span class="menu-icon" id="menu-toggle">&#9776;</span>
             <div class="search-container">
-                <input type="search" placeholder="Search...">
-                <button type="submit">Search</button>
+                <input type="search" placeholder="Search..." name="search" id="search">
+                <button type="submit" onClick="javascript:executeSearch()">Search</button>
             </div>
         </header>
 
         <main>
             <div class="column left-column">
+                <div class="text-container">
+                    <input type=text id="song-title" placeholder="Song title ..." width="50%"></textarea>
+                    <input type=text id="song-author" placeholder="Author ..."  width="50%"></textarea>
+                </div>
                 <label for="source-text">Source Text</label>
                 <div class="text-container">
                     <textarea id="source-text" placeholder="Enter text to translate..."></textarea>
                 </div>
-                <button class="btn translate-btn">Translate</button>
+                <button class="btn translate-btn" onClick="javascript:translateSong();">Translate</button>
             </div>
             <div class="column right-column">
                 <label for="translated-text">Translated Text</label>
