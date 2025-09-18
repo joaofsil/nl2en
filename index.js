@@ -21,7 +21,7 @@ async function translateSong() {
     const song   = document.getElementById("source-text").value;
 
     const worker_url = "https://nl2enworker.joao-sil.workers.dev/api/translate";
-    let res = fetch(worker_url, {
+    let res = await fetch(worker_url, {
             method: "POST",
             body: JSON.stringify({
                 title: title,
@@ -30,8 +30,45 @@ async function translateSong() {
             })
         }
     );
-    let response = res.json();
+    let response = await res.json();
     let translation = response.translation;
 
+    if(response.status != 200) {
+        let error = response.message;
+        alert(error);
+        return;
+    }
+
     document.getElementById("translated-text").innerHTML = translation;
+}
+
+
+async function saveSong() {
+    const title       = document.getElementById("song-title").value;
+    const author      = document.getElementById("song-author").value;
+    const song        = document.getElementById("source-text").value;
+    const translation = document.getElementById("translated-text").value;
+
+    const worker_url = "https://nl2enworker.joao-sil.workers.dev/api/save";
+    let res = await fetch(worker_url, {
+        method: "POST",
+        body: JSON.stringify({
+            title: title,
+            author: author,
+            song: song,
+            translation: translation
+        })
+    }
+    );
+    let response = await res.json();
+    let result = response.message;
+
+    if (response.status != 200) {
+        let error = response.message;
+        alert(error);
+        return;
+    }
+
+    console.log(response);
+    alert("Operation Save ended with result: " + result);
 }
